@@ -14,6 +14,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.AsyncSupportConfigurer;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -59,8 +60,20 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		registry.jsp("/WEB-INF/views/", ".jsp");
 	}
 
+	@SuppressWarnings("deprecation")
+	@Override
+	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+		// Re-enable path extension content negotiation (e.g. /foo.json → JSON, /foo.xml → XML).
+		// Deprecated in Spring 5.3 but retained for backwards compatibility with existing URL patterns.
+		configurer.favorPathExtension(true);
+	}
+
+	@SuppressWarnings("deprecation")
 	@Override
 	public void configurePathMatch(PathMatchConfigurer configurer) {
+		// Re-enable suffix pattern matching (e.g. /mapping/produces.json) for compatibility.
+		// Deprecated in Spring 5.3 but retained to preserve existing URL patterns.
+		configurer.setUseSuffixPatternMatch(true);
 		UrlPathHelper pathHelper = new UrlPathHelper();
 		pathHelper.setRemoveSemicolonContent(false); // For @MatrixVariable's
 		configurer.setUrlPathHelper(pathHelper);
