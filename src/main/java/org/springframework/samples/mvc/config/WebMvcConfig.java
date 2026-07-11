@@ -14,6 +14,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.AsyncSupportConfigurer;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -64,6 +65,16 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		UrlPathHelper pathHelper = new UrlPathHelper();
 		pathHelper.setRemoveSemicolonContent(false); // For @MatrixVariable's
 		configurer.setUrlPathHelper(pathHelper);
+		// Re-enable suffix pattern matching to support file-extension routing
+		// (e.g. /mapping/produces.json). Deprecated in Spring 5.3 but functional.
+		configurer.setUseSuffixPatternMatch(true);
+	}
+
+	@Override
+	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+		// Re-enable path-extension content negotiation so that .json / .xml
+		// suffixes drive the response media type. Deprecated in Spring 5.3 but functional.
+		configurer.favorPathExtension(true);
 	}
 
 	@Override
