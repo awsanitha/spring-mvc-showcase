@@ -22,6 +22,8 @@ public class RedirectControllerTests {
 
 	@Test
 	public void uriTemplate() throws Exception {
+		// java.time.LocalDate is converted to string using the locale's short date format (12/31/11 in US)
+		// and the slash characters are URL-encoded in the redirect URL
 		this.mockMvc.perform(get("/redirect/uriTemplate"))
 				.andExpect(redirectedUrl("/redirect/a123?date=12%2F31%2F11"));
 	}
