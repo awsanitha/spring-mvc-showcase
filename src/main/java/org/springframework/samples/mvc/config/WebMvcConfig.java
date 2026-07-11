@@ -14,6 +14,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.AsyncSupportConfigurer;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -60,10 +61,22 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
+	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+		// Re-enable path extension content negotiation for backward compatibility.
+		// Note: favorPathExtension is deprecated in Spring 5.3 but still functional.
+		configurer.favorPathExtension(true);
+	}
+
+	@Override
+	@SuppressWarnings("deprecation")
 	public void configurePathMatch(PathMatchConfigurer configurer) {
 		UrlPathHelper pathHelper = new UrlPathHelper();
 		pathHelper.setRemoveSemicolonContent(false); // For @MatrixVariable's
 		configurer.setUrlPathHelper(pathHelper);
+		// Re-enable suffix pattern matching for backward compatibility.
+		// Note: useSuffixPatternMatch is deprecated in Spring 5.3 but still functional.
+		configurer.setUseSuffixPatternMatch(true);
 	}
 
 	@Override
