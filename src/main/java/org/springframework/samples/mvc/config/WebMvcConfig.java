@@ -12,7 +12,7 @@ import org.springframework.samples.mvc.data.custom.CustomArgumentResolver;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.multipart.MultipartResolver;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.AsyncSupportConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
@@ -20,7 +20,6 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.util.UrlPathHelper;
 
 // DispatcherServlet context: defines Spring MVC infrastructure
 // and web application components
@@ -61,9 +60,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 	@Override
 	public void configurePathMatch(PathMatchConfigurer configurer) {
-		UrlPathHelper pathHelper = new UrlPathHelper();
-		pathHelper.setRemoveSemicolonContent(false); // For @MatrixVariable's
-		configurer.setUrlPathHelper(pathHelper);
+		// Spring 6 uses PathPatternParser by default which preserves semicolon content
+		// (required for @MatrixVariable). No additional configuration needed.
 	}
 
 	@Override
@@ -74,7 +72,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 	@Bean
 	public MultipartResolver multipartResolver() {
-		return new CommonsMultipartResolver();
+		return new StandardServletMultipartResolver();
 	}
 
 }
