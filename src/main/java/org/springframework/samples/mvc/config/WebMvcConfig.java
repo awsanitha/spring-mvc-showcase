@@ -14,6 +14,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.AsyncSupportConfigurer;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -34,6 +35,13 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
 		registry.addFormatterForFieldAnnotation(new MaskFormatAnnotationFormatterFactory());
+	}
+
+	@Override
+	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+		// Re-enable path extension content negotiation (e.g. /mapping/produces.json)
+		// which is disabled by default since Spring 5.3.
+		configurer.favorPathExtension(true);
 	}
 
 	@Override
@@ -64,6 +72,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		UrlPathHelper pathHelper = new UrlPathHelper();
 		pathHelper.setRemoveSemicolonContent(false); // For @MatrixVariable's
 		configurer.setUrlPathHelper(pathHelper);
+		configurer.setUseSuffixPatternMatch(true); // Re-enable for extension-based URL matching (e.g. /path.json)
 	}
 
 	@Override
