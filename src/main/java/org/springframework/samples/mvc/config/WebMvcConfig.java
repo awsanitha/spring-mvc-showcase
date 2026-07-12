@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.http.MediaType;
 import org.springframework.samples.mvc.async.TimeoutCallableProcessingInterceptor;
 import org.springframework.samples.mvc.convert.MaskFormatAnnotationFormatterFactory;
 import org.springframework.samples.mvc.data.custom.CustomArgumentResolver;
@@ -14,6 +15,7 @@ import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.multipart.MultipartResolver;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.AsyncSupportConfigurer;
+import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -34,6 +36,16 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
 		registry.addFormatterForFieldAnnotation(new MaskFormatAnnotationFormatterFactory());
+	}
+
+	@Override
+	@SuppressWarnings("deprecation")
+	public void configureContentNegotiation(ContentNegotiationConfigurer configurer) {
+		// Enable path extension content negotiation for .json and .xml suffixes
+		// (deprecated in Spring 5.3 but retained to support showcase extension-based routing demos)
+		configurer.favorPathExtension(true)
+				.mediaType("json", MediaType.APPLICATION_JSON)
+				.mediaType("xml", MediaType.APPLICATION_XML);
 	}
 
 	@Override
@@ -64,6 +76,9 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		UrlPathHelper pathHelper = new UrlPathHelper();
 		pathHelper.setRemoveSemicolonContent(false); // For @MatrixVariable's
 		configurer.setUrlPathHelper(pathHelper);
+		// Enable registered-suffix pattern match so .json / .xml extension requests
+		// are routed to the correct handler (deprecated in Spring 5.3, still functional)
+		configurer.setUseRegisteredSuffixPatternMatch(true);
 	}
 
 	@Override
