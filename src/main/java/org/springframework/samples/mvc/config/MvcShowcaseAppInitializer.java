@@ -1,6 +1,6 @@
 package org.springframework.samples.mvc.config;
 
-import javax.servlet.Filter;
+import jakarta.servlet.Filter;
 
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
