@@ -1,6 +1,6 @@
 package org.springframework.samples.mvc.views;
 
-import javax.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotNull;
 
 public class JavaBean {
 	
