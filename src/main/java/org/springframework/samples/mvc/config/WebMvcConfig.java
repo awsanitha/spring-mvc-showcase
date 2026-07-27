@@ -1,10 +1,15 @@
 package org.springframework.samples.mvc.config;
 
 import java.util.List;
+import java.util.Locale;
+
+import org.joda.time.LocalDate;
+import org.joda.time.format.ISODateTimeFormat;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.format.Formatter;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.samples.mvc.async.TimeoutCallableProcessingInterceptor;
 import org.springframework.samples.mvc.convert.MaskFormatAnnotationFormatterFactory;
@@ -34,6 +39,17 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
 		registry.addFormatterForFieldAnnotation(new MaskFormatAnnotationFormatterFactory());
+		registry.addFormatter(new Formatter<LocalDate>() {
+			@Override
+			public LocalDate parse(String text, Locale locale) {
+				return LocalDate.parse(text, ISODateTimeFormat.date());
+			}
+
+			@Override
+			public String print(LocalDate object, Locale locale) {
+				return ISODateTimeFormat.date().print(object);
+			}
+		});
 	}
 
 	@Override
