@@ -50,7 +50,7 @@ public class StandardArgumentsControllerTests {
 	public void response() throws Exception {
 		this.mockMvc.perform(get("/data/standard/response"))
 				.andExpect(content().string(startsWith(
-						"response = org.springframework.mock.web.MockHttpServletResponse@")));
+						"response = org.springframework.web.context.request.async.StandardServletAsyncWebRequest$LifecycleHttpServletResponse@")));
 	}
 
 	@Test

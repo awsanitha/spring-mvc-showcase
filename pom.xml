@@ -10,7 +10,7 @@
 
 	<properties>
 		<java-version>25</java-version>
-		<org.springframework-version>6.1.15</org.springframework-version>
+		<org.springframework-version>6.2.7</org.springframework-version>
 		<org.aspectj-version>1.9.25</org.aspectj-version>
 	</properties>
 
