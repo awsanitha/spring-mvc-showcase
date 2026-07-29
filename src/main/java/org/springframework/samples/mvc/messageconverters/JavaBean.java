@@ -1,7 +1,7 @@
 package org.springframework.samples.mvc.messageconverters;
 
-import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
+import jakarta.validation.constraints.NotNull;
+import jakarta.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class JavaBean {
