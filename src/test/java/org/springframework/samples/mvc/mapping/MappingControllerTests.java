@@ -91,18 +91,6 @@ public class MappingControllerTests extends AbstractContextControllerTests {
 				.andExpect(xpath("/javaBean/fruit").string("apple"));
 	}
 
-	@Test
-	public void byProducesJsonExtension() throws Exception {
-		this.mockMvc.perform(get("/mapping/produces.json"))
-				.andExpect(jsonPath("$.foo").value("bar"))
-				.andExpect(jsonPath("$.fruit").value("apple"));
-	}
-
-	@Test
-	public void byProducesXmlExtension() throws Exception {
-		this.mockMvc.perform(get("/mapping/produces.xml"))
-				.andExpect(xpath("/javaBean/foo").string("bar"))
-				.andExpect(xpath("/javaBean/fruit").string("apple"));
-	}
+	// Note: path extension content negotiation (.json / .xml suffixes) was removed in Spring 6.
 
 }
