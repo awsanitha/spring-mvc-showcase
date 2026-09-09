@@ -1,6 +1,7 @@
 package org.springframework.samples.mvc.config;
 
-import javax.servlet.Filter;
+import jakarta.servlet.Filter;
+import jakarta.servlet.MultipartConfigElement;
 
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
@@ -29,6 +30,11 @@ public class MvcShowcaseAppInitializer extends AbstractAnnotationConfigDispatche
 	@Override
 	protected Filter[] getServletFilters() {
 		return new Filter[] { new DelegatingFilterProxy("csrfFilter") };
+	}
+
+	@Override
+	protected void customizeRegistration(jakarta.servlet.ServletRegistration.Dynamic registration) {
+		registration.setMultipartConfig(new MultipartConfigElement(""));
 	}
 
 }

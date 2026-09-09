@@ -5,6 +5,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standaloneSetup;
 
+import org.joda.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.format.support.DefaultFormattingConversionService;
@@ -16,7 +17,19 @@ public class RedirectControllerTests {
 
 	@Before
 	public void setup() throws Exception {
-		this.mockMvc = standaloneSetup(new RedirectController(new DefaultFormattingConversionService()))
+		DefaultFormattingConversionService cs = new DefaultFormattingConversionService();
+		cs.addFormatter(new org.springframework.format.Formatter<LocalDate>() {
+			@Override
+			public LocalDate parse(String text, java.util.Locale locale) {
+				return LocalDate.parse(text, org.joda.time.format.DateTimeFormat.shortDate().withLocale(locale));
+			}
+			@Override
+			public String print(LocalDate object, java.util.Locale locale) {
+				return org.joda.time.format.DateTimeFormat.shortDate().withLocale(locale).print(object);
+			}
+		});
+		this.mockMvc = standaloneSetup(new RedirectController(cs))
+				.setConversionService(cs)
 				.alwaysExpect(status().isFound()).build();
 	}
 
