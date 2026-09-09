@@ -1,6 +1,6 @@
 package org.springframework.samples.mvc.messageconverters;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import com.rometools.rome.feed.atom.Feed;
 import com.rometools.rome.feed.rss.Channel;
