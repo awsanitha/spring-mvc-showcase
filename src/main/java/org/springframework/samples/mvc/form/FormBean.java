@@ -4,10 +4,10 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.Map;
 
-import javax.validation.constraints.Min;
-import javax.validation.constraints.Past;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Past;
 
-import org.hibernate.validator.constraints.NotEmpty;
+import jakarta.validation.constraints.NotEmpty;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.NumberFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
