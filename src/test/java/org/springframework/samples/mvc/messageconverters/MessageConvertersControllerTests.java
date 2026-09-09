@@ -53,7 +53,7 @@ public class MessageConvertersControllerTests extends AbstractContextControllerT
 	@Test
 	public void writeForm() throws Exception {
 		this.mockMvc.perform(get(URI, "form"))
-				.andExpect(content().contentType(MediaType.APPLICATION_FORM_URLENCODED))
+				.andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_FORM_URLENCODED))
 				.andExpect(content().string("foo=bar&fruit=apple"));
 	}
 
