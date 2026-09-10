@@ -1,6 +1,6 @@
 package org.springframework.samples.mvc.form;
 
-import javax.validation.Valid;
+import jakarta.validation.Valid;
 
 import org.springframework.mvc.extensions.ajax.AjaxUtils;
 import org.springframework.stereotype.Controller;

@@ -1,6 +1,6 @@
 package org.springframework.samples.mvc.fileupload;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.fileUpload;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
@@ -19,7 +19,7 @@ public class FileUploadControllerTests extends AbstractContextControllerTests {
 		MockMultipartFile file = new MockMultipartFile("file", "orig", null, "bar".getBytes());
 
 		webAppContextSetup(this.wac).build()
-				.perform(fileUpload("/fileupload").file(file))
+				.perform(multipart("/fileupload").file(file))
 				.andExpect(model().attribute("message", "File 'orig' uploaded successfully"));
 	}
 
