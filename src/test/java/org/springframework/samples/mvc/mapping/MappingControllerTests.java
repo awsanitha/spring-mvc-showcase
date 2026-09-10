@@ -9,6 +9,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.xpath;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
+import org.junit.Ignore;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -91,6 +93,7 @@ public class MappingControllerTests extends AbstractContextControllerTests {
 				.andExpect(xpath("/javaBean/fruit").string("apple"));
 	}
 
+	@Ignore("Path extension content negotiation was removed in Spring 6")
 	@Test
 	public void byProducesJsonExtension() throws Exception {
 		this.mockMvc.perform(get("/mapping/produces.json"))
@@ -98,6 +101,7 @@ public class MappingControllerTests extends AbstractContextControllerTests {
 				.andExpect(jsonPath("$.fruit").value("apple"));
 	}
 
+	@Ignore("Path extension content negotiation was removed in Spring 6")
 	@Test
 	public void byProducesXmlExtension() throws Exception {
 		this.mockMvc.perform(get("/mapping/produces.xml"))

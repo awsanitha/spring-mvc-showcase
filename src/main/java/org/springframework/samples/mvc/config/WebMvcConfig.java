@@ -12,7 +12,7 @@ import org.springframework.samples.mvc.data.custom.CustomArgumentResolver;
 import org.springframework.scheduling.annotation.EnableScheduling;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.multipart.MultipartResolver;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.config.annotation.AsyncSupportConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.PathMatchConfigurer;
@@ -74,7 +74,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 	@Bean
 	public MultipartResolver multipartResolver() {
-		return new CommonsMultipartResolver();
+		return new StandardServletMultipartResolver();
 	}
 
 }
