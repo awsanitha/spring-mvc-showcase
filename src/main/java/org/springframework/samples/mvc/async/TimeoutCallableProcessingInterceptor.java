@@ -3,12 +3,12 @@ package org.springframework.samples.mvc.async;
 import java.util.concurrent.Callable;
 
 import org.springframework.web.context.request.NativeWebRequest;
-import org.springframework.web.context.request.async.CallableProcessingInterceptorAdapter;
+import org.springframework.web.context.request.async.CallableProcessingInterceptor;
 
-public class TimeoutCallableProcessingInterceptor extends CallableProcessingInterceptorAdapter {
+public class TimeoutCallableProcessingInterceptor implements CallableProcessingInterceptor {
 
 	@Override
-	public <T> Object handleTimeout(NativeWebRequest request, Callable<T> task) {
+	public <T> Object handleTimeout(NativeWebRequest request, Callable<T> task) throws Exception {
 		throw new IllegalStateException("[" + task.getClass().getName() + "] timed out");
 	}
 
