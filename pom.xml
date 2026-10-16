@@ -9,9 +9,9 @@
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 
 	<properties>
-		<java-version>1.8</java-version>
+		<java-version>21</java-version>
 		<org.springframework-version>5.0.4.RELEASE</org.springframework-version>
-		<org.aspectj-version>1.8.1</org.aspectj-version>
+		<org.aspectj-version>1.9.25</org.aspectj-version>
 	</properties>
 
 	<dependencies>
@@ -174,15 +174,17 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.7.0</version>
+				<version>3.13.0</version>
 				<configuration>
 					<source>${java-version}</source>
 					<target>${java-version}</target>
+					<parameters>true</parameters>
 				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-war-plugin</artifactId>
+				<version>3.4.0</version>
 				<configuration>
 					<failOnMissingWebXml>false</failOnMissingWebXml>
 				</configuration>
@@ -190,7 +192,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>2.20.1</version>
+				<version>3.5.2</version>
 				<configuration>
 					<includes>
 						<include>**/*Tests.java</include>
@@ -198,7 +200,6 @@
 					<excludes>
 						<exclude>**/Abstract*.java</exclude>
 					</excludes>
-					<junitArtifactName>junit:junit</junitArtifactName>
 					<argLine>-Xmx512m</argLine>
 				</configuration>
 			</plugin>
@@ -216,9 +217,9 @@
 				</executions>
 			</plugin>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
+				<groupId>dev.aspectj</groupId>
 				<artifactId>aspectj-maven-plugin</artifactId>
-				<version>1.11</version>
+				<version>1.14.1</version>
 				<dependencies>
 					<dependency>
 						<groupId>org.aspectj</groupId>
@@ -244,12 +245,13 @@
 					<complianceLevel>${java-version}</complianceLevel>
 					<source>${java-version}</source>
 					<target>${java-version}</target>
+					<parameters>true</parameters>
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>org.eclipse.jetty</groupId>
-				<artifactId>jetty-maven-plugin</artifactId>
-				<version>9.4.8.v20171121</version>
+				<groupId>org.eclipse.jetty.ee10</groupId>
+				<artifactId>jetty-ee10-maven-plugin</artifactId>
+				<version>12.0.16</version>
 				<configuration>
 					<webApp>
 						<contextPath>/${project.artifactId}</contextPath>
