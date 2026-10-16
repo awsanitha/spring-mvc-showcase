@@ -1,6 +1,6 @@
 package org.springframework.samples.mvc.redirect;
 
-import javax.inject.Inject;
+import jakarta.inject.Inject;
 
 import org.joda.time.LocalDate;
 
