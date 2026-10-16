@@ -7,6 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
 import org.springframework.samples.mvc.async.TimeoutCallableProcessingInterceptor;
+import org.springframework.samples.mvc.convert.JodaLocalDateFormatter;
 import org.springframework.samples.mvc.convert.MaskFormatAnnotationFormatterFactory;
 import org.springframework.samples.mvc.data.custom.CustomArgumentResolver;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -34,6 +35,8 @@ public class WebMvcConfig implements WebMvcConfigurer {
 	@Override
 	public void addFormatters(FormatterRegistry registry) {
 		registry.addFormatterForFieldAnnotation(new MaskFormatAnnotationFormatterFactory());
+		// Spring 6 no longer auto-registers the Joda-Time formatters
+		registry.addFormatter(new JodaLocalDateFormatter());
 	}
 
 	@Override

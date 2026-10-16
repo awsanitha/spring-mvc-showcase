@@ -8,6 +8,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.standal
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.format.support.DefaultFormattingConversionService;
+import org.springframework.samples.mvc.convert.JodaLocalDateFormatter;
 import org.springframework.test.web.servlet.MockMvc;
 
 public class RedirectControllerTests {
@@ -16,7 +17,11 @@ public class RedirectControllerTests {
 
 	@Before
 	public void setup() throws Exception {
-		this.mockMvc = standaloneSetup(new RedirectController(new DefaultFormattingConversionService()))
+		// Spring no longer auto-registers the Joda-Time formatters
+		DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService();
+		conversionService.addFormatter(new JodaLocalDateFormatter());
+		this.mockMvc = standaloneSetup(new RedirectController(conversionService))
+				.setConversionService(conversionService)
 				.alwaysExpect(status().isFound()).build();
 	}
 
